@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env*
+!.env.example
+.session_secret
+config/.session_secret
+buildflow.db*
+.playwright-cli/
+*.log

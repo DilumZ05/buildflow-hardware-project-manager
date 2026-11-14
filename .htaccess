@@ -1,0 +1,17 @@
+Options -Indexes
+RewriteEngine On
+
+# Preserve Authorization header across Apache/CGI/FastCGI configurations
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%0]
+
+# Route all /api/* requests to PHP router
+RewriteRule ^api(/.*)?$ api/index.php [QSA,L]
+
+# Serve existing static assets directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# SPA fallback
+RewriteRule ^ index.html [L]
